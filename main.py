@@ -3,6 +3,7 @@ import detect as detector
 import cv2
 import numpy as np
 
+
 def decode_image(image):
     result_dict = {}
     results = []
@@ -32,6 +33,7 @@ def decode_image(image):
     result_dict["results"] = results
     return result_dict
 
+
 if __name__ == "__main__":
     image = cv2.imread("multiple.jpg")
     result_dict = decode_image(image)
@@ -43,16 +45,16 @@ if __name__ == "__main__":
                 text = "Code: "
             ean13 = result["barcodeText"]
             text = text + ean13 + " "
-            cv2.line(image,(result["x1"],result["y1"]),(result["x2"],result["y2"]),(0,255,0),3)
-            cv2.line(image,(result["x2"],result["y2"]),(result["x3"],result["y3"]),(0,255,0),3)
-            cv2.line(image,(result["x3"],result["y3"]),(result["x4"],result["y4"]),(0,255,0),3)
-            cv2.line(image,(result["x4"],result["y4"]),(result["x1"],result["y1"]),(0,255,0),3)
-    scale_percent = 640/image.shape[1]
+            cv2.line(image, (result["x1"], result["y1"]), (result["x2"], result["y2"]), (0, 255, 0), 3)
+            cv2.line(image, (result["x2"], result["y2"]), (result["x3"], result["y3"]), (0, 255, 0), 3)
+            cv2.line(image, (result["x3"], result["y3"]), (result["x4"], result["y4"]), (0, 255, 0), 3)
+            cv2.line(image, (result["x4"], result["y4"]), (result["x1"], result["y1"]), (0, 255, 0), 3)
+    scale_percent = 640 / image.shape[1]
     width = int(image.shape[1] * scale_percent)
     height = int(image.shape[0] * scale_percent)
     dim = (width, height)
-    resized = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
-    cv2.putText(resized, text, (5,50), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255), 2)
+    resized = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
+    cv2.putText(resized, text, (5, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255), 2)
     cv2.imshow("result", resized);
     cv2.waitKey(0);
     cv2.destroyAllWindows();
